@@ -88,7 +88,7 @@
   .btn-line:hover { border-color: var(--ink); }
 
   /* Sections */
-  .section { padding: 112px 0; border-top: 1px solid var(--line); }
+  .section { padding: 112px 0; border-top: 1px solid var(--line); scroll-margin-top: 40px; }
   .section-head { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start; }
   .section h2 { font-weight: 700; font-size: clamp(32px, 4.2vw, 48px); line-height: 1.08; letter-spacing: -0.03em; max-width: 14ch; }
   .section-head p { font-size: 19px; color: var(--muted); max-width: 46ch; }
@@ -136,8 +136,32 @@
   .next p { color: var(--muted); max-width: 52ch; }
 
   /* Contact */
-  .contact-mail { display: inline-block; margin-top: 40px; font-weight: 700; font-size: clamp(26px, 4.6vw, 56px); letter-spacing: -0.03em; line-height: 1.1; text-decoration: none; border-bottom: 3px solid var(--pine); padding-bottom: 4px; overflow-wrap: anywhere; transition: color .15s; }
-  .contact-mail:hover { color: var(--pine); }
+  .contact-grid { margin-top: 64px; display: grid; grid-template-columns: 1.6fr 1fr; gap: 64px; align-items: start; }
+  .form { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 40px; display: grid; gap: 22px; }
+  .form .row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .field { display: grid; gap: 8px; }
+  .field label { font-size: 15px; font-weight: 500; }
+  .field input, .field select, .field textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink); background: var(--paper);
+    border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; transition: border-color .15s, box-shadow .15s;
+  }
+  .field textarea { resize: vertical; min-height: 140px; }
+  .field select { appearance: none; -webkit-appearance: none; padding-right: 40px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23586761' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; }
+  .field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--pine); box-shadow: 0 0 0 3px var(--pine-soft); }
+  .field.invalid input, .field.invalid textarea { border-color: #b3261e; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+  .form-foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .form-foot .note { font-size: 14px; color: var(--muted); }
+  .form button { cursor: pointer; font-family: inherit; }
+  .form button[disabled] { opacity: .6; cursor: progress; }
+  .form-status { font-size: 15px; font-weight: 500; min-height: 1px; }
+  .form-status:empty { display: none; }
+  .form-status.ok { color: var(--pine); }
+  .form-status.err { color: #b3261e; }
+  .contact-aside { display: grid; gap: 32px; padding-top: 8px; }
+  .contact-aside h3 { font-size: 15px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
+  .contact-aside a { font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--pine); overflow-wrap: anywhere; }
+  .contact-aside a:hover { color: var(--pine); }
 
   /* Footer */
   .site-footer { padding: 64px 0 48px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
@@ -158,6 +182,12 @@
     .feature-visual { min-height: 480px; }
     .next { padding: 32px 28px; }
     .legal { grid-template-columns: 1fr 1fr; justify-content: stretch; }
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; margin-top: 40px; }
+  }
+  @media (max-width: 600px) {
+    .form { padding: 24px 20px; }
+    .form .row { grid-template-columns: 1fr; }
+    .form-foot .btn { width: 100%; }
   }
   @media (max-width: 600px) {
     .wrap { padding: 0 20px; }
@@ -281,7 +311,51 @@
         <h2>Hai să vorbim.</h2>
         <p>Pentru întrebări despre aplicațiile noastre, colaborări sau suport, scrie-ne. Răspundem de obicei în aceeași zi lucrătoare.</p>
       </div>
-      <a class="contact-mail" href="mailto:contact@wisera-technology.com">contact@wisera-technology.com</a>
+      <div class="contact-grid">
+        <form class="form" id="contact-form" action="https://formsubmit.co/contact@wisera-technology.com" method="POST" novalidate>
+          <input type="hidden" name="_subject" value="Mesaj nou de pe wisera-technology.com">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div class="row">
+            <div class="field">
+              <label for="f-name">Nume</label>
+              <input id="f-name" name="nume" type="text" autocomplete="name" required>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <input id="f-email" name="email" type="email" autocomplete="email" required>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-topic">Despre ce e vorba?</label>
+            <select id="f-topic" name="subiect">
+              <option>Întrebare generală</option>
+              <option>Aplicația Cadoro</option>
+              <option>Colaborare</option>
+              <option>Altceva</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-msg">Mesaj</label>
+            <textarea id="f-msg" name="mesaj" rows="6" required></textarea>
+          </div>
+          <div class="form-foot">
+            <p class="note">Folosim datele trimise doar ca să-ți răspundem.</p>
+            <button class="btn btn-solid" type="submit">Trimite mesajul</button>
+          </div>
+          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+        </form>
+        <aside class="contact-aside">
+          <div>
+            <h3>Email</h3>
+            <a href="mailto:contact@wisera-technology.com">contact@wisera-technology.com</a>
+          </div>
+          <div>
+            <h3>Sediu</h3>
+            <p>Str. Pavel Roșca nr. 4, ap. 28<br>400498 Cluj-Napoca, România</p>
+          </div>
+        </aside>
+      </div>
     </div>
   </section>
 </main>
@@ -298,5 +372,60 @@
   </div>
 </footer>
 
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  var button = form.querySelector('button[type="submit"]');
+
+  function setStatus(text, kind) {
+    status.textContent = text;
+    status.className = 'form-status' + (kind ? ' ' + kind : '');
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bad = null;
+    form.querySelectorAll('[required]').forEach(function (el) {
+      var ok = el.value.trim() !== '' && (el.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+      el.closest('.field').classList.toggle('invalid', !ok);
+      if (!ok && !bad) bad = el;
+    });
+    if (bad) {
+      setStatus('Completează numele, un email valid și mesajul.', 'err');
+      bad.focus();
+      return;
+    }
+    if (form._honey.value) return;
+
+    button.disabled = true;
+    button.textContent = 'Se trimite…';
+    setStatus('', '');
+
+    fetch('https://formsubmit.co/ajax/contact@wisera-technology.com', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
+      .then(function (res) {
+        if (!res.ok || String(res.d.success) !== 'true') throw new Error();
+        form.reset();
+        setStatus('Mesajul a fost trimis. Îți răspundem în curând.', 'ok');
+      })
+      .catch(function () {
+        setStatus('Mesajul nu a putut fi trimis. Încearcă din nou sau scrie-ne la contact@wisera-technology.com.', 'err');
+      })
+      .then(function () {
+        button.disabled = false;
+        button.textContent = 'Trimite mesajul';
+      });
+  });
+
+  form.querySelectorAll('[required]').forEach(function (el) {
+    el.addEventListener('input', function () { el.closest('.field').classList.remove('invalid'); });
+  });
+})();
+</script>
 </body>
 </html>
