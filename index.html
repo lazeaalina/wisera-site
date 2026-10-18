@@ -40,6 +40,7 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   * { margin: 0; padding: 0; }
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
   @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
@@ -85,6 +86,7 @@
   .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--line); transition: background .15s, border-color .15s; }
   .btn-solid { background: var(--pine); border-color: var(--pine); color: #f5f6f3; }
   .btn-solid:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .btn-line { background: transparent; color: var(--ink); }
   .btn-line:hover { border-color: var(--ink); }
 
   /* Sections */
@@ -158,6 +160,13 @@
   .form-status:empty { display: none; }
   .form-status.ok { color: var(--pine); }
   .form-status.err { color: #b3261e; }
+  .success { justify-items: start; padding: 56px 40px; }
+  .success[hidden] { display: none; }
+  .success-icon { width: 48px; height: 48px; }
+  .success h3 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; }
+  .success p { color: var(--muted); max-width: 44ch; margin-top: -10px; }
+  .form-status.err { background: #fbeceb; border: 1px solid #f0c9c6; border-radius: 10px; padding: 12px 14px; }
+  @media (prefers-color-scheme: dark) { .form-status.err { background: #2a1615; border-color: #4a2523; color: #f2b8b5; } }
   .contact-aside { display: grid; gap: 32px; padding-top: 8px; }
   .contact-aside h3 { font-size: 15px; font-weight: 500; color: var(--muted); margin-bottom: 6px; }
   .contact-aside a { font-weight: 600; text-decoration: none; border-bottom: 1.5px solid var(--pine); overflow-wrap: anywhere; }
@@ -312,6 +321,7 @@
         <p>Pentru întrebări despre aplicațiile noastre, colaborări sau suport, scrie-ne. Răspundem de obicei în aceeași zi lucrătoare.</p>
       </div>
       <div class="contact-grid">
+        <div class="form-wrap">
         <form class="form" id="contact-form" action="https://formsubmit.co/contact@wisera-technology.com" method="POST" novalidate>
           <input type="hidden" name="_subject" value="Mesaj nou de pe wisera-technology.com">
           <input type="hidden" name="_template" value="table">
@@ -343,8 +353,15 @@
             <p class="note">Folosim datele trimise doar ca să-ți răspundem.</p>
             <button class="btn btn-solid" type="submit">Trimite mesajul</button>
           </div>
-          <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          <p class="form-status" id="form-status" role="alert" aria-live="assertive"></p>
         </form>
+        <div class="form success" id="form-success" tabindex="-1" hidden>
+          <svg class="success-icon" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="var(--pine-soft)"/><path d="M15 24.5l6 6 12-13" fill="none" stroke="var(--pine)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <h3>Mesajul a fost trimis</h3>
+          <p id="success-text">Mulțumim! Îți răspundem în curând.</p>
+          <button class="btn btn-line" type="button" id="send-another">Trimite alt mesaj</button>
+        </div>
+        </div>
         <aside class="contact-aside">
           <div>
             <h3>Email</h3>
@@ -374,20 +391,29 @@
 
 <script>
 (function () {
+  var ENDPOINT = 'https://formsubmit.co/ajax/contact@wisera-technology.com';
   var form = document.getElementById('contact-form');
   var status = document.getElementById('form-status');
   var button = form.querySelector('button[type="submit"]');
+  var success = document.getElementById('form-success');
+  var successText = document.getElementById('success-text');
+  var again = document.getElementById('send-another');
 
   function setStatus(text, kind) {
     status.textContent = text;
     status.className = 'form-status' + (kind ? ' ' + kind : '');
+  }
+  function busy(on) {
+    button.disabled = on;
+    button.textContent = on ? 'Se trimite…' : 'Trimite mesajul';
   }
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     var bad = null;
     form.querySelectorAll('[required]').forEach(function (el) {
-      var ok = el.value.trim() !== '' && (el.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value.trim()));
+      var v = el.value.trim();
+      var ok = v !== '' && (el.type !== 'email' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v));
       el.closest('.field').classList.toggle('invalid', !ok);
       if (!ok && !bad) bad = el;
     });
@@ -396,30 +422,51 @@
       bad.focus();
       return;
     }
-    if (form._honey.value) return;
+    if (form.querySelector('[name="_honey"]').value) return;
 
-    button.disabled = true;
-    button.textContent = 'Se trimite…';
+    var name = form.querySelector('[name="nume"]').value.trim().split(' ')[0];
+    var email = form.querySelector('[name="email"]').value.trim();
+    var ctrl = window.AbortController ? new AbortController() : null;
+    var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 20000);
+
+    busy(true);
     setStatus('', '');
 
-    fetch('https://formsubmit.co/ajax/contact@wisera-technology.com', {
+    fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'Accept': 'application/json' },
-      body: new FormData(form)
+      body: new FormData(form),
+      signal: ctrl ? ctrl.signal : undefined
     })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (res) {
-        if (!res.ok || String(res.d.success) !== 'true') throw new Error();
-        form.reset();
-        setStatus('Mesajul a fost trimis. Îți răspundem în curând.', 'ok');
+      .then(function (r) { return r.json().catch(function () { return {}; }); })
+      .then(function (d) {
+        if (String(d.success) === 'true') {
+          form.reset();
+          form.hidden = true;
+          successText.textContent = 'Mulțumim, ' + name + '! Am primit mesajul și îți răspundem la ' + email + ' în curând.';
+          success.hidden = false;
+          success.focus({ preventScroll: true });
+          success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          return;
+        }
+        var msg = String(d.message || '');
+        if (/activ/i.test(msg)) {
+          setStatus('Formularul nu este încă activat. Verifică emailul contact@wisera-technology.com și apasă „Activate Form” în mesajul de la FormSubmit, apoi trimite din nou.', 'err');
+        } else {
+          throw new Error(msg);
+        }
       })
       .catch(function () {
-        setStatus('Mesajul nu a putut fi trimis. Încearcă din nou sau scrie-ne la contact@wisera-technology.com.', 'err');
+        setStatus('Mesajul nu a putut fi trimis. Încearcă din nou sau scrie-ne direct la contact@wisera-technology.com.', 'err');
       })
-      .then(function () {
-        button.disabled = false;
-        button.textContent = 'Trimite mesajul';
-      });
+      .then(function () { clearTimeout(timer); busy(false); });
+  });
+
+  again.addEventListener('click', function () {
+    success.hidden = true;
+    form.hidden = false;
+    setStatus('', '');
+    form.querySelector('[name="nume"]').focus();
   });
 
   form.querySelectorAll('[required]').forEach(function (el) {
