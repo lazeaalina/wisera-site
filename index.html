@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Wisera Technology — Dezvoltăm aplicații cu sens</title>
+<meta name="description" content="WISERATECHNOLOGY SRL este un studio din Cluj-Napoca care dezvoltă aplicații mobile cu sens. Primul nostru proiect: Cadoro.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c2562f'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23faf7f2'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #faf7f2;
+    --surface: #ffffff;
+    --ink: #1d1b19;
+    --muted: #6b645c;
+    --line: #e7e0d6;
+    --accent: #c2562f;
+    --accent-soft: #f6e4da;
+    --green: #2f4a3e;
+    --green-soft: #e2ebe5;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #161412;
+      --surface: #1f1c19;
+      --ink: #f3eee7;
+      --muted: #a89f94;
+      --line: #34302b;
+      --accent: #e07a52;
+      --accent-soft: #3a261d;
+      --green: #8fb9a3;
+      --green-soft: #22302a;
+    }
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
+  header { padding: 28px 0; }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+  .logo-mark {
+    width: 34px; height: 34px; border-radius: 10px; background: var(--accent);
+    color: var(--bg); display: grid; place-items: center;
+    font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 19px;
+  }
+  .logo-text { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em; }
+  .logo-text span { color: var(--muted); font-weight: 500; }
+  nav { display: flex; gap: 24px; font-size: 15px; }
+  nav a { text-decoration: none; color: var(--muted); }
+  nav a:hover { color: var(--ink); }
+
+  .hero { padding: 72px 0 96px; }
+  .eyebrow {
+    display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
+  }
+  h1 {
+    font-family: Fraunces, Georgia, serif; font-weight: 600;
+    font-size: clamp(42px, 7vw, 76px); line-height: 1.04; letter-spacing: -0.025em;
+    max-width: 12ch;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lead { margin-top: 24px; max-width: 560px; font-size: 19px; color: var(--muted); }
+  .actions { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 13px 22px; border-radius: 999px; font-weight: 600;
+    font-size: 15px; text-decoration: none; border: 1px solid var(--ink);
+  }
+  .btn-primary { background: var(--ink); color: var(--bg); }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-ghost:hover { background: var(--surface); }
+
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+  h2 {
+    font-family: Fraunces, Georgia, serif; font-weight: 600;
+    font-size: clamp(30px, 4vw, 42px); line-height: 1.15; letter-spacing: -0.02em;
+  }
+  .section-intro { margin-top: 14px; max-width: 600px; color: var(--muted); }
+
+  .values { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .value h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
+  .value p { color: var(--muted); font-size: 16px; }
+  .value-num { font-family: Fraunces, Georgia, serif; color: var(--accent); font-size: 15px; margin-bottom: 10px; }
+
+  .projects { margin-top: 48px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
+  .card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
+    padding: 36px; display: flex; flex-direction: column;
+  }
+  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
+  .app-icon {
+    width: 64px; height: 64px; border-radius: 16px; background: var(--accent);
+    display: grid; place-items: center;
+  }
+  .app-icon svg { width: 34px; height: 34px; }
+  .pill {
+    font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
+    background: var(--green-soft); color: var(--green); white-space: nowrap;
+  }
+  .card h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 30px; letter-spacing: -0.015em; }
+  .card .tag { color: var(--muted); font-size: 14px; margin-top: 2px; }
+  .card p.desc { margin-top: 16px; color: var(--muted); }
+  .card .meta { margin-top: auto; padding-top: 28px; font-size: 14px; color: var(--muted); }
+  .card.next { background: transparent; border-style: dashed; }
+  .card.next .app-icon { background: var(--line); }
+  .card.next .pill { background: var(--accent-soft); color: var(--accent); }
+
+  .contact-box {
+    margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center;
+    justify-content: space-between; gap: 20px; padding: 36px;
+    background: var(--ink); color: var(--bg); border-radius: 24px;
+  }
+  .contact-box p { opacity: 0.75; font-size: 15px; }
+  .contact-box a.mail {
+    font-family: Fraunces, Georgia, serif; font-size: clamp(20px, 3vw, 28px);
+    text-decoration: none; border-bottom: 1px solid currentColor;
+  }
+
+  footer { padding: 40px 0 56px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+  footer strong { color: var(--ink); font-weight: 600; }
+
+  @media (max-width: 760px) {
+    nav { display: none; }
+    .hero { padding: 40px 0 72px; }
+    section { padding: 64px 0; }
+    .values { grid-template-columns: 1fr; gap: 28px; }
+    .projects { grid-template-columns: 1fr; }
+    .card, .contact-box { padding: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#">
+      <div class="logo-mark">W</div>
+      <div class="logo-text">Wisera <span>Technology</span></div>
+    </a>
+    <nav>
+      <a href="#despre">Despre noi</a>
+      <a href="#proiecte">Proiecte</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow">Studio de aplicații · Cluj-Napoca</div>
+      <h1>Dezvoltăm aplicații <em>cu sens.</em></h1>
+      <p class="lead">Construim produse digitale atent gândite, care rezolvă probleme reale și aduc puțin mai multă grijă în viața de zi cu zi.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#proiecte">Vezi proiectele</a>
+        <a class="btn btn-ghost" href="#contact">Scrie-ne</a>
+      </div>
+    </div>
+  </div>
+
+  <section id="despre">
+    <div class="wrap">
+      <h2>Mai puțin zgomot, mai mult sens.</h2>
+      <p class="section-intro">Credem că o aplicație bună nu se măsoară în timpul petrecut pe ecran, ci în ce lasă în urmă. De aceea lucrăm la puține lucruri, dar le facem cu grijă.</p>
+      <div class="values">
+        <div class="value">
+          <div class="value-num">01</div>
+          <h3>Utilitate reală</h3>
+          <p>Pornim de la nevoi concrete ale oamenilor, nu de la tendințe. Fiecare funcție trebuie să-și merite locul.</p>
+        </div>
+        <div class="value">
+          <div class="value-num">02</div>
+          <h3>Respect pentru timp și date</h3>
+          <p>Fără trucuri care să te țină captiv. Colectăm doar datele de care aplicația are nevoie ca să funcționeze.</p>
+        </div>
+        <div class="value">
+          <div class="value-num">03</div>
+          <h3>Atenție la detalii</h3>
+          <p>Design simplu, experiență clară și produse îngrijite, construite să dureze.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="proiecte">
+    <div class="wrap">
+      <h2>Proiecte</h2>
+      <p class="section-intro">La ce lucrăm acum și ce urmează.</p>
+      <div class="projects">
+        <article class="card">
+          <div class="card-top">
+            <div class="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#faf7f2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="8" width="18" height="13" rx="2"/>
+                <path d="M3 12h18M12 8v13"/>
+                <path d="M12 8c-1.5-3-5-4-5.5-1.5S9.5 8 12 8zM12 8c1.5-3 5-4 5.5-1.5S14.5 8 12 8z"/>
+              </svg>
+            </div>
+            <span class="pill">În dezvoltare</span>
+          </div>
+          <h3>Cadoro</h3>
+          <div class="tag">Aplicație iOS · cadoro.app</div>
+          <p class="desc">Cadoro te ajută să alegi cadouri cu sens pentru oamenii dragi: idei potrivite, ocaziile importante și listele tale, toate într-un singur loc. Pentru că un cadou bun spune „m-am gândit la tine”.</p>
+          <div class="meta">În curând pe App Store</div>
+        </article>
+
+        <article class="card next">
+          <div class="card-top">
+            <div class="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted)">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+            </div>
+            <span class="pill">În pregătire</span>
+          </div>
+          <h3>Următorul proiect</h3>
+          <p class="desc">Lucrăm deja la următoarea idee. Revino curând sau scrie-ne dacă vrei să afli primul.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="wrap">
+      <h2>Hai să vorbim</h2>
+      <p class="section-intro">Ai o întrebare, o idee sau vrei să colaborăm? Îți răspundem cu drag.</p>
+      <div class="contact-box">
+        <div>
+          <p>Ne poți scrie oricând la</p>
+          <a class="mail" href="mailto:contact@wisera-technology.com">contact@wisera-technology.com</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <strong>WISERATECHNOLOGY SRL</strong><br>
+      CUI 45163253 · Nr. Reg. Com. J2021005336129<br>
+      Str. Pavel Roșca nr. 4, ap. 28, 400498 Cluj-Napoca, jud. Cluj, România
+    </div>
+    <div>© 2026 WISERATECHNOLOGY SRL<br>Toate drepturile rezervate.</div>
+  </div>
+</footer>
+
+</body>
+</html>
