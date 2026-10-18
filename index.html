@@ -3,258 +3,298 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Wisera Technology — Dezvoltăm aplicații cu sens</title>
-<meta name="description" content="WISERATECHNOLOGY SRL este un studio din Cluj-Napoca care dezvoltă aplicații mobile cu sens. Primul nostru proiect: Cadoro.">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23c2562f'/%3E%3Ctext x='32' y='44' font-family='Georgia,serif' font-size='36' font-weight='700' text-anchor='middle' fill='%23faf7f2'%3EW%3C/text%3E%3C/svg%3E">
+<title>Wisera Technology – aplicații cu sens</title>
+<meta name="description" content="WISERATECHNOLOGY SRL este un studio de software din Cluj-Napoca care dezvoltă aplicații mobile cu sens. Primul nostru produs: Cadoro.">
+<meta property="og:title" content="Wisera Technology">
+<meta property="og:description" content="Dezvoltăm aplicații cu sens. Studio de software din Cluj-Napoca.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wisera-technology.com/">
+<meta name="theme-color" content="#f5f6f3">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231e4a40'/%3E%3Cpath d='M15 21l8 22 9-17 9 17 8-22' fill='none' stroke='%23f5f6f3' stroke-width='5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800&family=Bodoni+Moda:opsz,wght@6..96,500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #faf7f2;
+    --paper: #f5f6f3;
     --surface: #ffffff;
-    --ink: #1d1b19;
-    --muted: #6b645c;
-    --line: #e7e0d6;
-    --accent: #c2562f;
-    --accent-soft: #f6e4da;
-    --green: #2f4a3e;
-    --green-soft: #e2ebe5;
+    --ink: #13201c;
+    --pine: #1e4a40;
+    --pine-soft: #e3ebe7;
+    --muted: #586761;
+    --line: #d8dfdb;
+    /* Cadoro brand, used only inside the Cadoro feature */
+    --cadoro-rust: #a83e15;
+    --cadoro-cream: #fdf6ef;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --bg: #161412;
-      --surface: #1f1c19;
-      --ink: #f3eee7;
-      --muted: #a89f94;
-      --line: #34302b;
-      --accent: #e07a52;
-      --accent-soft: #3a261d;
-      --green: #8fb9a3;
-      --green-soft: #22302a;
+      --paper: #0e1714;
+      --surface: #15201c;
+      --ink: #e7ede9;
+      --pine: #8cc3b1;
+      --pine-soft: #1b2c27;
+      --muted: #9aaba4;
+      --line: #263631;
     }
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   body {
-    background: var(--bg);
+    background: var(--paper);
     color: var(--ink);
-    font-family: Inter, system-ui, -apple-system, sans-serif;
+    font-family: "Schibsted Grotesk", system-ui, -apple-system, sans-serif;
     font-size: 17px;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   a { color: inherit; }
-  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  :focus-visible { outline: 2px solid var(--pine); outline-offset: 3px; border-radius: 4px; }
 
-  header { padding: 28px 0; }
-  header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-  .logo-mark {
-    width: 34px; height: 34px; border-radius: 10px; background: var(--accent);
-    color: var(--bg); display: grid; place-items: center;
-    font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 19px;
-  }
-  .logo-text { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 20px; letter-spacing: -0.01em; }
-  .logo-text span { color: var(--muted); font-weight: 500; }
-  nav { display: flex; gap: 24px; font-size: 15px; }
-  nav a { text-decoration: none; color: var(--muted); }
-  nav a:hover { color: var(--ink); }
+  .wrap { width: 100%; max-width: 1120px; margin: 0 auto; padding: 0 28px; }
 
-  .hero { padding: 72px 0 96px; }
-  .eyebrow {
-    display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em;
-    text-transform: uppercase; color: var(--accent); margin-bottom: 20px;
-  }
-  h1 {
-    font-family: Fraunces, Georgia, serif; font-weight: 600;
-    font-size: clamp(42px, 7vw, 76px); line-height: 1.04; letter-spacing: -0.025em;
-    max-width: 12ch;
-  }
-  h1 em { font-style: italic; color: var(--accent); }
-  .lead { margin-top: 24px; max-width: 560px; font-size: 19px; color: var(--muted); }
-  .actions { margin-top: 36px; display: flex; gap: 12px; flex-wrap: wrap; }
-  .btn {
-    display: inline-block; padding: 13px 22px; border-radius: 999px; font-weight: 600;
-    font-size: 15px; text-decoration: none; border: 1px solid var(--ink);
-  }
-  .btn-primary { background: var(--ink); color: var(--bg); }
-  .btn-primary:hover { opacity: 0.88; }
-  .btn-ghost:hover { background: var(--surface); }
+  /* Header */
+  .site-header { position: sticky; top: 0; z-index: 10; background: color-mix(in srgb, var(--paper) 88%, transparent); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid transparent; }
+  .site-header .wrap { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+  .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+  .brand svg { width: 32px; height: 32px; flex: none; }
+  .brand-name { font-weight: 700; font-size: 18px; letter-spacing: -0.01em; }
+  .brand-name span { font-weight: 400; color: var(--muted); }
+  .nav { display: flex; align-items: center; gap: 32px; font-size: 15px; }
+  .nav a { text-decoration: none; color: var(--muted); transition: color .15s; }
+  .nav a:hover { color: var(--ink); }
+  .nav a.nav-cta { color: var(--paper); background: var(--ink); padding: 9px 18px; border-radius: 8px; font-weight: 500; }
+  .nav a.nav-cta:hover { color: var(--paper); background: var(--pine); }
 
-  section { padding: 88px 0; border-top: 1px solid var(--line); }
-  h2 {
-    font-family: Fraunces, Georgia, serif; font-weight: 600;
-    font-size: clamp(30px, 4vw, 42px); line-height: 1.15; letter-spacing: -0.02em;
+  /* Hero */
+  .hero { padding: 120px 0 112px; }
+  .hero h1 {
+    font-weight: 800;
+    font-size: clamp(48px, 8.4vw, 112px);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    max-width: 11ch;
   }
-  .section-intro { margin-top: 14px; max-width: 600px; color: var(--muted); }
+  .hero-foot { margin-top: 56px; display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; }
+  .hero-foot p { font-size: 20px; line-height: 1.55; color: var(--muted); max-width: 34ch; }
+  .hero-actions { display: flex; gap: 12px; justify-content: flex-end; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; height: 48px; padding: 0 24px; border-radius: 10px; font-weight: 600; font-size: 15px; text-decoration: none; border: 1px solid var(--line); transition: background .15s, border-color .15s; }
+  .btn-solid { background: var(--pine); border-color: var(--pine); color: #f5f6f3; }
+  .btn-solid:hover { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+  .btn-line:hover { border-color: var(--ink); }
 
-  .values { margin-top: 48px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
-  .value h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; }
-  .value p { color: var(--muted); font-size: 16px; }
-  .value-num { font-family: Fraunces, Georgia, serif; color: var(--accent); font-size: 15px; margin-bottom: 10px; }
+  /* Sections */
+  .section { padding: 112px 0; border-top: 1px solid var(--line); }
+  .section-head { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; align-items: start; }
+  .section h2 { font-weight: 700; font-size: clamp(32px, 4.2vw, 48px); line-height: 1.08; letter-spacing: -0.03em; max-width: 14ch; }
+  .section-head p { font-size: 19px; color: var(--muted); max-width: 46ch; }
 
-  .projects { margin-top: 48px; display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
-  .card {
-    background: var(--surface); border: 1px solid var(--line); border-radius: 24px;
-    padding: 36px; display: flex; flex-direction: column;
-  }
-  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 28px; }
-  .app-icon {
-    width: 64px; height: 64px; border-radius: 16px; background: var(--accent);
-    display: grid; place-items: center;
-  }
-  .app-icon svg { width: 34px; height: 34px; }
-  .pill {
-    font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: 999px;
-    background: var(--green-soft); color: var(--green); white-space: nowrap;
-  }
-  .card h3 { font-family: Fraunces, Georgia, serif; font-weight: 600; font-size: 30px; letter-spacing: -0.015em; }
-  .card .tag { color: var(--muted); font-size: 14px; margin-top: 2px; }
-  .card p.desc { margin-top: 16px; color: var(--muted); }
-  .card .meta { margin-top: auto; padding-top: 28px; font-size: 14px; color: var(--muted); }
-  .card.next { background: transparent; border-style: dashed; }
-  .card.next .app-icon { background: var(--line); }
-  .card.next .pill { background: var(--accent-soft); color: var(--accent); }
+  /* Principles */
+  .principles { margin-top: 72px; border-top: 1px solid var(--line); }
+  .principle { display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; padding: 32px 0; border-bottom: 1px solid var(--line); }
+  .principle h3 { font-weight: 600; font-size: 21px; letter-spacing: -0.01em; }
+  .principle p { color: var(--muted); max-width: 52ch; }
 
-  .contact-box {
-    margin-top: 40px; display: flex; flex-wrap: wrap; align-items: center;
-    justify-content: space-between; gap: 20px; padding: 36px;
-    background: var(--ink); color: var(--bg); border-radius: 24px;
-  }
-  .contact-box p { opacity: 0.75; font-size: 15px; }
-  .contact-box a.mail {
-    font-family: Fraunces, Georgia, serif; font-size: clamp(20px, 3vw, 28px);
-    text-decoration: none; border-bottom: 1px solid currentColor;
-  }
+  /* Cadoro feature */
+  .feature { margin-top: 72px; display: grid; grid-template-columns: 1fr 1fr; border-radius: 20px; overflow: hidden; background: var(--surface); border: 1px solid var(--line); }
+  .feature-copy { padding: 56px; display: flex; flex-direction: column; }
+  .status { align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 500; color: var(--pine); background: var(--pine-soft); padding: 6px 12px; border-radius: 999px; }
+  .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+  .feature-copy h3 { margin-top: 32px; font-family: "Bodoni Moda", Georgia, serif; font-weight: 500; font-size: 40px; letter-spacing: 0.3em; line-height: 1; }
+  .feature-copy .kicker { margin-top: 14px; font-size: 18px; font-weight: 500; }
+  .feature-copy .desc { margin-top: 20px; color: var(--muted); max-width: 44ch; }
+  .facts { margin-top: auto; padding-top: 40px; display: grid; grid-template-columns: auto 1fr; gap: 10px 28px; font-size: 15px; }
+  .facts dt { color: var(--muted); }
+  .facts dd { font-weight: 500; }
 
-  footer { padding: 40px 0 56px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
-  footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
-  footer strong { color: var(--ink); font-weight: 600; }
+  .feature-visual {
+    position: relative; min-height: 560px; display: grid; place-items: center; padding: 56px 24px;
+    background: linear-gradient(150deg, #c2511f 0%, #a83e15 55%, #7e2c0c 100%);
+  }
+  .phone {
+    width: 252px; aspect-ratio: 9 / 19.5; border-radius: 42px; padding: 10px;
+    background: #1b1410; box-shadow: 0 40px 80px -24px rgba(40, 12, 0, .55), 0 0 0 1px rgba(255,255,255,.08) inset;
+  }
+  .screen {
+    position: relative; height: 100%; border-radius: 33px; overflow: hidden;
+    background: radial-gradient(120% 70% at 50% 38%, #fbe3cf 0%, var(--cadoro-cream) 62%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; color: #2a1d16;
+  }
+  .island { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); width: 76px; height: 22px; border-radius: 12px; background: #1b1410; }
+  .screen svg { width: 92px; height: 92px; }
+  .screen .wordmark { margin-top: 18px; font-family: "Bodoni Moda", Georgia, serif; font-weight: 500; font-size: 23px; letter-spacing: 0.34em; margin-right: -0.34em; }
+  .screen .rule { width: 36px; height: 1px; background: var(--cadoro-rust); opacity: .5; margin: 16px 0 12px; }
+  .screen .tagline { font-size: 8.5px; font-weight: 600; letter-spacing: 0.24em; margin-right: -0.24em; color: var(--cadoro-rust); }
 
-  @media (max-width: 760px) {
-    nav { display: none; }
-    .hero { padding: 40px 0 72px; }
-    section { padding: 64px 0; }
-    .values { grid-template-columns: 1fr; gap: 28px; }
-    .projects { grid-template-columns: 1fr; }
-    .card, .contact-box { padding: 28px; }
+  /* Next project */
+  .next { margin-top: 20px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 48px; padding: 40px 56px; border-radius: 20px; border: 1px dashed var(--line); }
+  .next h3 { font-weight: 600; font-size: 21px; }
+  .next p { color: var(--muted); max-width: 52ch; }
+
+  /* Contact */
+  .contact-mail { display: inline-block; margin-top: 40px; font-weight: 700; font-size: clamp(26px, 4.6vw, 56px); letter-spacing: -0.03em; line-height: 1.1; text-decoration: none; border-bottom: 3px solid var(--pine); padding-bottom: 4px; overflow-wrap: anywhere; transition: color .15s; }
+  .contact-mail:hover { color: var(--pine); }
+
+  /* Footer */
+  .site-footer { padding: 64px 0 48px; border-top: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .legal { display: grid; grid-template-columns: repeat(4, auto); justify-content: space-between; gap: 24px 40px; }
+  .legal dt { margin-bottom: 4px; }
+  .legal dd { color: var(--ink); font-weight: 500; }
+  .copyright { margin-top: 48px; }
+
+  @media (max-width: 880px) {
+    .hero { padding: 72px 0 80px; }
+    .hero-foot, .section-head, .principle, .next { grid-template-columns: 1fr; gap: 20px; }
+    .hero-foot { margin-top: 40px; }
+    .hero-actions { justify-content: flex-start; }
+    .section { padding: 80px 0; }
+    .principles, .feature { margin-top: 48px; }
+    .feature { grid-template-columns: 1fr; }
+    .feature-copy { padding: 36px 28px; }
+    .feature-visual { min-height: 480px; }
+    .next { padding: 32px 28px; }
+    .legal { grid-template-columns: 1fr 1fr; justify-content: stretch; }
+  }
+  @media (max-width: 600px) {
+    .wrap { padding: 0 20px; }
+    .nav a:not(.nav-cta) { display: none; }
+    .legal { grid-template-columns: 1fr; }
+    .feature-copy h3 { font-size: 32px; }
   }
 </style>
 </head>
 <body>
 
-<header>
+<header class="site-header">
   <div class="wrap">
-    <a class="logo" href="#">
-      <div class="logo-mark">W</div>
-      <div class="logo-text">Wisera <span>Technology</span></div>
+    <a class="brand" href="#" aria-label="Wisera Technology, acasă">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="14" fill="#1e4a40"/><path d="M15 21l8 22 9-17 9 17 8-22" fill="none" stroke="#f5f6f3" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="brand-name">Wisera <span>Technology</span></span>
     </a>
-    <nav>
+    <nav class="nav" aria-label="Principal">
       <a href="#despre">Despre noi</a>
       <a href="#proiecte">Proiecte</a>
-      <a href="#contact">Contact</a>
+      <a class="nav-cta" href="#contact">Contact</a>
     </nav>
   </div>
 </header>
 
 <main>
-  <div class="hero">
+  <section class="hero">
     <div class="wrap">
-      <div class="eyebrow">Studio de aplicații · Cluj-Napoca</div>
-      <h1>Dezvoltăm aplicații <em>cu sens.</em></h1>
-      <p class="lead">Construim produse digitale atent gândite, care rezolvă probleme reale și aduc puțin mai multă grijă în viața de zi cu zi.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="#proiecte">Vezi proiectele</a>
-        <a class="btn btn-ghost" href="#contact">Scrie-ne</a>
-      </div>
-    </div>
-  </div>
-
-  <section id="despre">
-    <div class="wrap">
-      <h2>Mai puțin zgomot, mai mult sens.</h2>
-      <p class="section-intro">Credem că o aplicație bună nu se măsoară în timpul petrecut pe ecran, ci în ce lasă în urmă. De aceea lucrăm la puține lucruri, dar le facem cu grijă.</p>
-      <div class="values">
-        <div class="value">
-          <div class="value-num">01</div>
-          <h3>Utilitate reală</h3>
-          <p>Pornim de la nevoi concrete ale oamenilor, nu de la tendințe. Fiecare funcție trebuie să-și merite locul.</p>
-        </div>
-        <div class="value">
-          <div class="value-num">02</div>
-          <h3>Respect pentru timp și date</h3>
-          <p>Fără trucuri care să te țină captiv. Colectăm doar datele de care aplicația are nevoie ca să funcționeze.</p>
-        </div>
-        <div class="value">
-          <div class="value-num">03</div>
-          <h3>Atenție la detalii</h3>
-          <p>Design simplu, experiență clară și produse îngrijite, construite să dureze.</p>
+      <h1>Dezvoltăm aplicații cu sens.</h1>
+      <div class="hero-foot">
+        <p>Suntem un studio de software din Cluj-Napoca. Construim aplicații mobile care rezolvă probleme reale și își fac loc firesc în viața oamenilor.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#proiecte">Vezi proiectele</a>
+          <a class="btn btn-line" href="#contact">Contactează-ne</a>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="proiecte">
+  <section class="section" id="despre">
     <div class="wrap">
-      <h2>Proiecte</h2>
-      <p class="section-intro">La ce lucrăm acum și ce urmează.</p>
-      <div class="projects">
-        <article class="card">
-          <div class="card-top">
-            <div class="app-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#faf7f2" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="8" width="18" height="13" rx="2"/>
-                <path d="M3 12h18M12 8v13"/>
-                <path d="M12 8c-1.5-3-5-4-5.5-1.5S9.5 8 12 8zM12 8c1.5-3 5-4 5.5-1.5S14.5 8 12 8z"/>
-              </svg>
-            </div>
-            <span class="pill">În dezvoltare</span>
-          </div>
-          <h3>Cadoro</h3>
-          <div class="tag">Aplicație iOS · cadoro.app</div>
-          <p class="desc">Cadoro te ajută să alegi cadouri cu sens pentru oamenii dragi: idei potrivite, ocaziile importante și listele tale, toate într-un singur loc. Pentru că un cadou bun spune „m-am gândit la tine”.</p>
-          <div class="meta">În curând pe App Store</div>
-        </article>
-
-        <article class="card next">
-          <div class="card-top">
-            <div class="app-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="color:var(--muted)">
-                <path d="M12 5v14M5 12h14"/>
-              </svg>
-            </div>
-            <span class="pill">În pregătire</span>
-          </div>
-          <h3>Următorul proiect</h3>
-          <p class="desc">Lucrăm deja la următoarea idee. Revino curând sau scrie-ne dacă vrei să afli primul.</p>
-        </article>
+      <div class="section-head">
+        <h2>Puține produse, făcute cu grijă.</h2>
+        <p>O aplicație bună nu se măsoară în timpul petrecut pe ecran, ci în ce rămâne după ce o închizi. Lucrăm la proiecte în care credem și le ducem până la capăt.</p>
+      </div>
+      <div class="principles">
+        <div class="principle">
+          <h3>Pornim de la oameni</h3>
+          <p>Fiecare funcție începe de la o nevoie concretă, nu de la o tendință. Dacă nu ușurează viața cuiva, nu intră în aplicație.</p>
+        </div>
+        <div class="principle">
+          <h3>Respectăm timpul și datele</h3>
+          <p>Fără mecanisme care să țină utilizatorii captivi. Colectăm doar datele de care aplicația are nevoie ca să funcționeze și le protejăm.</p>
+        </div>
+        <div class="principle">
+          <h3>Construim să dureze</h3>
+          <p>Design simplu, cod îngrijit și produse pe care le întreținem pe termen lung, nu lansări uitate după o lună.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="contact">
+  <section class="section" id="proiecte">
     <div class="wrap">
-      <h2>Hai să vorbim</h2>
-      <p class="section-intro">Ai o întrebare, o idee sau vrei să colaborăm? Îți răspundem cu drag.</p>
-      <div class="contact-box">
-        <div>
-          <p>Ne poți scrie oricând la</p>
-          <a class="mail" href="mailto:contact@wisera-technology.com">contact@wisera-technology.com</a>
-        </div>
+      <div class="section-head">
+        <h2>Proiecte</h2>
+        <p>Primul nostru produs este aproape gata. Următorul e deja pe planșetă.</p>
       </div>
+
+      <article class="feature">
+        <div class="feature-copy">
+          <span class="status">În dezvoltare</span>
+          <h3>CADORO</h3>
+          <p class="kicker">Liste de dorințe și zile de naștere, într-un singur loc.</p>
+          <p class="desc">Cadoro îți amintește din timp de zilele de naștere ale prietenilor și îți arată ce și-ar dori de fapt, din listele lor. Îți faci propria listă, o împarți cu cei dragi și nu mai ghicești niciodată ce cadou să alegi.</p>
+          <dl class="facts">
+            <dt>Platformă</dt><dd>iOS</dd>
+            <dt>Disponibilitate</dt><dd>În curând pe App Store</dd>
+            <dt>Site</dt><dd>cadoro.app</dd>
+          </dl>
+        </div>
+        <div class="feature-visual" aria-hidden="true">
+          <div class="phone">
+            <div class="screen">
+              <div class="island"></div>
+              <svg viewBox="0 0 100 100" fill="none">
+                <defs>
+                  <linearGradient id="rust" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#8f3510"/>
+                    <stop offset="1" stop-color="#c8582a"/>
+                  </linearGradient>
+                </defs>
+                <g stroke="url(#rust)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M46 44C34 24 13 26 15 40c2 12 20 11 31 6"/>
+                  <path d="M54 44c12-20 33-18 31-4-2 12-20 11-31 6"/>
+                  <path d="M42 41c-7-5-15-6-19-3" opacity=".45"/>
+                  <path d="M58 41c7-5 15-6 19-3" opacity=".45"/>
+                  <path d="M47 50c-4 11-9 21-16 30"/>
+                  <path d="M53 50c4 11 9 21 16 30"/>
+                  <rect x="45" y="41" width="10" height="10" rx="4"/>
+                </g>
+              </svg>
+              <div class="wordmark">CADORO</div>
+              <div class="rule"></div>
+              <div class="tagline">THE ART OF GIVING</div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <div class="next">
+        <h3>Următorul proiect</h3>
+        <p>Lucrăm deja la o nouă aplicație. O anunțăm aici când e gata de arătat. Dacă vrei să afli primul, scrie-ne.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>Hai să vorbim.</h2>
+        <p>Pentru întrebări despre aplicațiile noastre, colaborări sau suport, scrie-ne. Răspundem de obicei în aceeași zi lucrătoare.</p>
+      </div>
+      <a class="contact-mail" href="mailto:contact@wisera-technology.com">contact@wisera-technology.com</a>
     </div>
   </section>
 </main>
 
-<footer>
+<footer class="site-footer">
   <div class="wrap">
-    <div>
-      <strong>WISERATECHNOLOGY SRL</strong><br>
-      CUI 45163253 · Nr. Reg. Com. J2021005336129<br>
-      Str. Pavel Roșca nr. 4, ap. 28, 400498 Cluj-Napoca, jud. Cluj, România
-    </div>
-    <div>© 2026 WISERATECHNOLOGY SRL<br>Toate drepturile rezervate.</div>
+    <dl class="legal">
+      <div><dt>Denumire</dt><dd>WISERATECHNOLOGY SRL</dd></div>
+      <div><dt>CUI</dt><dd>45163253</dd></div>
+      <div><dt>Nr. Reg. Com.</dt><dd>J2021005336129</dd></div>
+      <div><dt>Sediu social</dt><dd>Str. Pavel Roșca nr. 4, ap. 28,<br>400498 Cluj-Napoca, jud. Cluj, România</dd></div>
+    </dl>
+    <p class="copyright">© 2026 WISERATECHNOLOGY SRL. Toate drepturile rezervate.</p>
   </div>
 </footer>
 
